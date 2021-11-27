@@ -1,10 +1,12 @@
 body {
   margin: 0;
+  background: linear-gradient(89deg, #FF5EDF 0%, #04C8DE 100%); /* w3c */
   font-family: -apple-system, BlinkMacSystemFont,"Courier New",'Courier', 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #FF5EDF;
 }
 
 code {
