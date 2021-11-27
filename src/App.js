@@ -22,8 +22,28 @@ class App extends Component {
 		super();
 		this.state = {
 			input:'',
-			imgUrl:''
+			imgUrl:'',
+			box:{}
 		}
+	}
+
+	calculateFaceLocation = (data) =>{
+		const clarifaiface = data.outputs[0].data.regions[0].region_info.bounding_box;
+		const image = document.getElementById('inputimage');
+
+		const width = Number(image.width);
+		const height = Number(image.height);
+		return{
+			leftCol:clarifaiface.left_col *width,
+			topRow:clarifaiface.top_row *height,
+			rightCol:width - (clarifaiface.right_col *width ),
+			bottomRow:height - (clarifaiface.bottom_row * height)
+		}
+	}
+
+	displayFacebox = (box) => {
+		console.log(box);
+		this.setState({ box:box })
 	}
 
 	onInputChange = (event) => {
@@ -35,15 +55,9 @@ class App extends Component {
 		this.setState({
 			imgUrl:this.state.input
 		})
-		console.log( this.state.imgUrl );
-		app.models.predict(Clarifai.FACE_DETECT_MODEL,this.state.input).then(
-			function(response){
-				console.log(response.outputs[0].data.regions[0].region_info.bounding_box );
-			},
-			function(err){
-
-			}
-		)
+		app.models.predict(Clarifai.FACE_DETECT_MODEL,this.state.input)
+		.then(response => this.displayFacebox( this.calculateFaceLocation(response) ) )
+		.catch( err => console.log(err) );
 	}
 
 	render(){
@@ -57,7 +71,8 @@ class App extends Component {
 					onInputChange = {this.onInputChange } 
 					onSubmitButton = {this.onSubmitButton}
 				/>
-				<FaceRecognition imgUrl={this.state.imgUrl} />
+				<FaceRecognition box={this.state.box} imgUrl={this.state.imgUrl} />
+
 			</div>
 		);
 	}
