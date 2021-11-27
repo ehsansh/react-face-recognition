@@ -61,14 +61,14 @@ class App extends Component {
 		.then(response => this.displayFacebox( this.calculateFaceLocation(response) ) )
 		.catch( err => console.log(err) );
 	}
-	onRouteChange = () =>{
-		
+	onRouteChange = (route) =>{
+		this.setState({route:route})
 	}
 	render(){
 		return (
 			<div className="App">
 				{/* <Particles className="particles" id="tsparticles" options={particleOptions} /> */}
-				<Navigation />
+				<Navigation onRouteChange={this.onRouteChange} />
 				{ this.state.route === 'signin' 
 				 ? <Singin onRouteChange={this.onRouteChange} />
 				: 
