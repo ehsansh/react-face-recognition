@@ -11,6 +11,7 @@ import particleOptions from './particleOptions';
 import { render } from '@testing-library/react';
 import { Component } from 'react';
 import Clarifai from 'clarifai';
+import Singin from './components/Signin/Signin';
 
 
 const app = new Clarifai.App({
@@ -23,7 +24,8 @@ class App extends Component {
 		this.state = {
 			input:'',
 			imgUrl:'',
-			box:{}
+			box:{},
+			route:'signin'
 		}
 	}
 
@@ -59,19 +61,28 @@ class App extends Component {
 		.then(response => this.displayFacebox( this.calculateFaceLocation(response) ) )
 		.catch( err => console.log(err) );
 	}
-
+	onRouteChange = () =>{
+		
+	}
 	render(){
 		return (
 			<div className="App">
 				{/* <Particles className="particles" id="tsparticles" options={particleOptions} /> */}
 				<Navigation />
-				<Logo />
-				<Rank />
-				<ImageLinkForm 
-					onInputChange = {this.onInputChange } 
-					onSubmitButton = {this.onSubmitButton}
-				/>
-				<FaceRecognition box={this.state.box} imgUrl={this.state.imgUrl} />
+				{ this.state.route === 'signin' 
+				 ? <Singin onRouteChange={this.onRouteChange} />
+				: 
+				<div>
+					<Logo />
+					<Rank />
+					<ImageLinkForm 
+						onInputChange = {this.onInputChange } 
+						onSubmitButton = {this.onSubmitButton}
+					/>
+					<FaceRecognition box={this.state.box} imgUrl={this.state.imgUrl} />
+				</div>
+				}
+
 
 			</div>
 		);

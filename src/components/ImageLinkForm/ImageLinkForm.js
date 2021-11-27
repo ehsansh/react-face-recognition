@@ -10,7 +10,6 @@ const ImageLinkForm = ({onInputChange,onSubmitButton }) =>{
                 You can copy and paste this url: 
                 <br />
                 https://res.cloudinary.com/demo/image/upload/front_face.jpg
-
             </p>
             <div className="center">
                 <div className="form center pa4 br3 shadow-5">
