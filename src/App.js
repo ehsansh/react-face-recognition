@@ -25,7 +25,7 @@ class App extends Component {
 			input:'',
 			imgUrl:'',
 			box:{},
-			route:'signin'
+			route:'home'
 		}
 	}
 
@@ -67,7 +67,7 @@ class App extends Component {
 	render(){
 		return (
 			<div className="App">
-				{/* <Particles className="particles" id="tsparticles" options={particleOptions} /> */}
+				<Particles className="particles" id="tsparticles" options={particleOptions} />
 				<Navigation onRouteChange={this.onRouteChange} />
 				{ this.state.route === 'signin' 
 				 ? <Singin onRouteChange={this.onRouteChange} />
